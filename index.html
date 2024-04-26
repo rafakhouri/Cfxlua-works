@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <title>Racing</title>
+</head>
+<body>
+    <div class="tablet" id="tablet">
+        <h1>ESTATÍSTICAS</h1><br>
+        <div class="estatistics">
+            <h2 id="races">Carregando...</h2>
+            <h2 id="earnings">Carregando...</h2>
+            <h2 id="bestcar">Carregando...</h2><br>
+            <button class="run" id="run" data-action="run">PROCURAR CORRIDA</button><br><br>
+            <button class="run" id="admb" data-action="create">[ADMIN] CRIAR CORRIDA</button><br>
+            <button class="run" id="admb2" data-action="ban">[ADMIN] BANIR CORREDOR</button>
+            <style>
+                #admb,#admb2 {
+                    margin-top: 0.7vw;
+                }
+
+                .registeredraces {
+                    margin-left: 22.2vw;
+                    margin-top: 19.2vw;
+                }
+            </style>
+        </div>
+        <div class="mostof">
+            <button class="addonButton" id="report">REPORTAR BUG</button>
+        </div>
+        <div class="registeredraces" id="registeredraces">
+            <label for="regraces"></label>
+            <form action="" class="pos">
+                <input placeholder="[ADMIN] Deletar corrida" type="text" class="input" id="deleterace" required>
+                <input type="submit" value="Deletar" id="rrace">
+            </form>
+        </div>
+        <style>
+            .banracer {
+                margin-top: 13.5vh;
+                margin-left: 10vh;
+            }
+        </style>
+        <div class="banracer" id="banracer">
+            <label for="banr"></label>
+            <form action="" class="pos">
+                <input placeholder="[ADMIN] Banir (ID)" type="text" class="input" id="ban" required>
+                <input type="submit" value="Banir" id="bann">
+            </form>
+        </div>
+        <div class="estatistics" id="e2">
+            <h2 id="timerecord">TOP TEMPO: Carregando...</h2>
+            <h2 id="timeowner">CORREDOR: Carregando...</h2>
+            <style>
+                #e2 {
+                    margin-top: 5.5vw;
+                    height: 3.7vw;
+                    width: 16vw;
+                }
+                #e2 h2 {
+                    font-size: 15px;
+                }
+            </style>
+        </div>
+    </div>
+    <div class="reportbug">
+        <style>
+            .reportbug {
+                margin-left: 51vw;
+                margin-top: -8vw;
+            }
+        </style>
+        <label for="denunciatext"></label>
+        <form action="" class="pos">
+            <input placeholder="Sua denúncia de BUG" type="text" class="input" id="denunciatext" required>
+            <input type="submit" value="Enviar denúncia" id="denuncia">
+        </form>
+    </div>
+    <div class="racecreator">
+        <button class="b">[F2] CHECKPOINT</button>
+        <button class="b">[F3] SALVAR</button>
+        <button class="b">[F7] SAIR</button>
+        <style>
+            .b {
+              align-items: center;
+              appearance: none;
+              background-clip: padding-box;
+              background-color: initial;
+              background-image: none;
+              border-style: none;
+              box-sizing: border-box;
+              color: #fff;
+              cursor: pointer;
+              display: inline-block;
+              flex-direction: row;
+              flex-shrink: 0;
+              font-family: Eina01,sans-serif;
+              font-size: 16px;
+              font-weight: 800;
+              justify-content: center;
+              line-height: 24px;
+              margin: 0;
+              min-height: 64px;
+              outline: none;
+              overflow: visible;
+              padding: 19px 26px;
+              pointer-events: auto;
+              position: relative;
+              text-align: center;
+              text-decoration: none;
+              text-transform: none;
+              user-select: none;
+              -webkit-user-select: none;
+              touch-action: manipulation;
+              vertical-align: middle;
+              width: auto;
+              word-break: keep-all;
+              z-index: 0;
+            }
+
+            @media (min-width: 768px) {
+              .b {
+                padding: 19px 32px;
+              }
+            }
+
+            .b:before,
+            .b:after {
+              border-radius: 80px;
+            }
+
+            .b:before {
+              background-color: rgba(249, 58, 19, .32);
+              content: "";
+              display: block;
+              height: 100%;
+              left: 0;
+              overflow: hidden;
+              position: absolute;
+              top: 0;
+              width: 100%;
+              z-index: -2;
+            }
+
+            .b:after {
+              background-color: initial;
+              background-image: linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+              bottom: 4px;
+              content: "";
+              display: block;
+              left: 4px;
+              overflow: hidden;
+              position: absolute;
+              right: 4px;
+              top: 4px;
+              transition: all 100ms ease-out;
+              z-index: -1;
+            }
+
+            .b:active:not(:disabled) {
+              color: #ccc;
+            }
+
+            .b:active:not(:disabled):after {
+              background-image: linear-gradient(0deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+              bottom: 4px;
+              left: 4px;
+              right: 4px;
+              top: 4px;
+            }
+
+            .b:disabled {
+              cursor: default;
+              opacity: .24;
+            }
+            .racecreator {
+                justify-content: center;
+                display: flex;
+                margin-top: 3.5vw;
+                margin-left: -4.5vw;
+            }
+        </style>
+    </div>
+    <div class="help">
+        <button class="bhelp">
+            [AJUDA] COMO CRIAR CORRIDAS?<br><br>
+            Primeiro passo: Spawna o carro da corrida e fica dentro dele.<br><br>
+            Segundo passo: Assim que você colocar o primeiro checkpoint<br> (F2) já vai começar.<br><br>
+            Terceiro passo: marque os checkpoints que você quer, e AINDA DENTRO <br> DO CARRO DA CORRIDA
+            aperte o F3 e salve a corrida <br> então insira o nome.<br><br>
+            Caso deseje sair: Apenas aperte o F7.
+        </button>
+        <style>
+            .bhelp {
+                margin-top: 23vw;
+                margin-left: 1vw;
+                align-items: center;
+                appearance: none;
+                background-color: #fcfcfd6b;
+                border-radius: 4px;
+                border-width: 0;
+                box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+                box-sizing: border-box;
+                color: #1b1c29;
+                cursor: pointer;
+                display: inline-flex;
+                font-family: "JetBrains Mono",monospace;
+                height: 13vw;
+                justify-content: center;
+                line-height: 1;
+                list-style: none;
+                overflow: hidden;
+                padding-left: 16px;
+                padding-right: 16px;
+                position: relative;
+                text-align: left;
+                text-decoration: none;
+                transition: box-shadow .15s,transform .15s;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                white-space: nowrap;
+                will-change: box-shadow,transform;
+                font-size: 18px;
+            }
+
+            .bhelp:focus {
+              box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+            }
+
+            .bhelp:active {
+              box-shadow: #D6D6E7 0 3px 7px inset;
+              transform: translateY(2px);
+            }
+        </style>
+    </div>
+    <div class="racename">
+        <form action="">
+            <input type="text" name="Nome da corrida" id="racename" required>
+            <input type="submit" value="Criar" id="sub">
+        </form>
+        <style>
+            .racename {
+                margin-left: -1vw;
+                margin-top: 5vw;
+            }
+            #sub {
+                font-family: 'Poppins',sans-serif;
+                border: 2px solid #ff7426;
+                border-radius: 5px;
+                width: 5vw;
+                background: linear-gradient(to right, rgb(201, 201, 201), #ff7426);
+                cursor: pointer;
+            }
+            #racename {
+                border-left: none;
+                background: transparent;
+                color: white;
+                border-right: none;
+                border-top: none;
+                border-bottom: 2px solid #ff7426;
+                outline: none;
+                font-family: 'Poppins',sans-serif;
+            }
+            #racename:hover {
+                border-bottom: 2px solid #ff7426;
+                border-radius: 0;
+            }
+        </style>
+    </div>
+    <div class="raceinterface">
+        <div class="timer">
+            <h1 id="timer">0:00:000</h1>
+            <h2 id="racingcar">Lexus LFA - Racing</h2>
+            <style>
+                .timer {
+                    width: 15vw;
+                    height: 6vw;
+                    margin-top: 3vw;
+                    margin-left: 77vw;
+                    border-radius: 5px;
+                    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                    background: linear-gradient(to right, rgba(0,0,0,0.75), #ff762679);
+                }
+
+                #racingcar {font-size: 20px;}
+
+                .timer h1{
+                    color: rgba(255,255,255,0.85);
+                    text-shadow: none;
+                }
+
+                .timer,.racinginfo h2 {
+                    text-align: center;
+                    margin-top: 0.3vw;
+                    font-family: 'Poppins',sans-serif;
+                    color: rgba(255,255,255,0.6);
+                }
+
+                .raceinterface {
+                    margin-top: 3vw;
+                }
+            </style>
+        </div>
+        <div class="racinginfo"><br>
+            <h2 id="topracer">TOP TEMPO:</h2>
+            <h2 id="yourtop">SEU TOP:</h2>
+            <h2 id="actualCheckPoint">Checkpoints ...</h2>
+            <style>
+                .racinginfo {
+                    width: 17vw;
+                    height: 10vw;
+                    background: linear-gradient(to right, rgba(0, 0, 0, 0.75), #ff762678);
+                    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                    margin-left: 77vw;
+                    margin-top: 20vw;
+                    border-radius: 5px;
+                }
+
+                .racinginfo h2 {text-align: left; padding-left: 1vw;}
+            </style>
+        </div>
+        <button class="b">[F7] DESISTIR</button>
+        <style>
+            .raceinterface button {
+                margin-top: -64.5vw;
+                margin-left: 3vw;
+            }
+        </style>
+    </div>
+    <div class="countage" id="countage">
+        <h1 id="realCountage">3</h1>
+        <style>
+            .countage {
+                margin-top: 40vh;
+                font-size: 35px;
+            }
+        </style>
+    </div>
+    <div class="policewarning">
+        <button class="policebutton">novo corredor ilegal detectado, averigue!</button>
+        <style>
+            .policebutton {
+              margin: 10px;
+              padding: 15px 30px;
+              margin-left: 75vw;
+              margin-top: 5vw;
+              text-align: center;
+              text-transform: uppercase;
+              transition: 0.5s;
+              background-size: 200% auto;
+              color: white;
+              border-radius: 10px;
+              display: block;
+              border: 0px;
+              font-weight: 700;
+              box-shadow: 0px 0px 14px -7px #f09819;
+              background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+              cursor: pointer;
+              user-select: none;
+              -webkit-user-select: none;
+              touch-action: manipulation;
+            }
+
+            .policebutton:active {
+              transform: scale(0.95);
+            }
+        </style>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
